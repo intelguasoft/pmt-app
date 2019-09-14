@@ -4,49 +4,59 @@ import { TabsPage } from './tabs.page';
 
 const routes: Routes = [
   {
-    path: 'tabs',
+    path: 'admin',
     component: TabsPage,
     children: [
       {
-        path: 'tab1',
+        path: 'peaje',
         children: [
           {
             path: '',
             loadChildren: () =>
-              import('../tab1/tab1.module').then(m => m.Tab1PageModule)
+              import('../peaje/peaje.module').then(m => m.PeajePageModule)
           }
         ]
       },
       {
-        path: 'tab2',
+        path: 'remisiones',
         children: [
           {
             path: '',
             loadChildren: () =>
-              import('../tab2/tab2.module').then(m => m.Tab2PageModule)
+              import('../remisiones/remisiones.module').then(m => m.RemisionesPageModule)
           }
         ]
       },
       {
-        path: 'tab3',
+        path: 'documentacion',
         children: [
           {
             path: '',
             loadChildren: () =>
-              import('../tab3/tab3.module').then(m => m.Tab3PageModule)
+              import('../documentacion/documentacion.module').then(m => m.DocumentacionPageModule)
+          }
+        ]
+      },
+      {
+        path: 'perfil',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../perfil/perfil.module').then(m => m.PerfilPageModule)
           }
         ]
       },
       {
         path: '',
-        redirectTo: '/tabs/tab1',
+        redirectTo: '/admin/peaje',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/tabs/tab1',
+    redirectTo: '/admin/peaje',
     pathMatch: 'full'
   }
 ];
