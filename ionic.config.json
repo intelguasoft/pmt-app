@@ -1,5 +1,7 @@
 {
   "name": "pmt-app",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

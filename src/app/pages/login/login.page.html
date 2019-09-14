@@ -1,31 +1,39 @@
-<ion-header>
-  <ion-toolbar color="success">
-    <ion-title>Acceso</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content class="ion-padding">
-  <form (ngSubmit)="onSubmit()">
+  <form (ngSubmit)="login(frmLogin)" #frmLogin="ngForm">
     <ion-list lines="none">
       <ion-item class="ion-padding-top">
         <ion-img class="center" src="assets/logo_2.jpg"></ion-img>
       </ion-item>
       <ion-item class="p-10">
         <ion-label color="success" position="floating">Usuario</ion-label>
-        <ion-input color="success" type="email"></ion-input>
+        <ion-input color="dark"
+                    name="email"
+                    [(ngModel)]="loginUser.email"
+                    type="email"
+                    >
+      </ion-input>
       </ion-item>
       <ion-item class="p-10">
         <ion-label color="success" position="floating">Contraseña</ion-label>
-        <ion-input color="success" type="password"></ion-input>
+        <ion-input color="dark"
+                    name="password"
+                    [(ngModel)]="loginUser.password"
+                    type="password"
+                    >
+      </ion-input>
       </ion-item>
       <ion-item>
         <ion-label color="success" >Recordarme?</ion-label>
-        <ion-checkbox color="success" slot="end"></ion-checkbox>
+        <ion-checkbox color="success"
+                      name="remember"
+                      [(ngModel)]="loginUser.remember"
+                      slot="end">
+        </ion-checkbox>
       </ion-item>
     </ion-list>
-    <ion-button color="success" shape="round" expand="full" fill="outline" size="large">
+    <ion-button type="submit" color="success" shape="round" expand="full" fill="outline" size="large">
       <ion-icon slot="start" name="log-in"></ion-icon>
-      Login
+      Log in
     </ion-button>
   </form>
 </ion-content>

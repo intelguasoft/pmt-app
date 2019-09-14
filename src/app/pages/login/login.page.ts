@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { AuthService } from 'src/app/services/auth.service';
+import { NavController } from '@ionic/angular';
+import { UIServiceService } from '../../services/uiservice.service';
 
 @Component({
   selector: 'app-login',
@@ -7,11 +11,33 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginPage implements OnInit {
 
-  constructor() { }
+  loginUser = {
+    email: 'edgar@chub.com',
+    password: '123456',
+    remember: true
+  };
+
+  constructor(private authService: AuthService,
+              private uiService: UIServiceService,
+              private navCtrl: NavController) { }
 
   ngOnInit() {
   }
 
-  onSubmit(){}
+  async login(frmLogin: NgForm) {
+
+    if (frmLogin.invalid) { return; }
+
+    const valido = await this.authService.login(this.loginUser.email, this.loginUser.password);
+
+    if (valido) {
+      // navegar al tab
+      this.navCtrl.navigateRoot('admin/peaje', { animated: true });
+    } else {
+      // mostrar alerta de error
+      this.uiService.presentAlert('Autenticación fallída', 'Usuario o contraseña incorrectos.');
+    }
+
+  }
 
 }
