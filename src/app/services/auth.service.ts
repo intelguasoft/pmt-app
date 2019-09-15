@@ -21,7 +21,7 @@ export class AuthService {
     return new Promise(resolve => {
 
       this.http.post(`${URL}/api/v1/auth/login`, data)
-        .subscribe(async resp => {
+        .subscribe(async <Respuesta>(resp) => {
           console.log(resp);
           if (resp.data.ok) {
             await this.saveToken(resp.data.access_token);
