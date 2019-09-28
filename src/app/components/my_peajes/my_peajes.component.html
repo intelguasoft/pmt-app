@@ -1,0 +1,8 @@
+<ion-list>
+  <ion-list-header>
+    <ion-label>Registros de hoy: {{ hoy | date: 'dd/MM/yyyy'}}</ion-label>
+  </ion-list-header>
+
+  <app-peaje *ngFor="let peaje of peajes" [peaje]="peaje" ></app-peaje>
+
+</ion-list>

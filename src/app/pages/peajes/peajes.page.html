@@ -1,0 +1,51 @@
+<ion-header translucent>
+  <!-- <ion-toolbar color="success">
+    <ion-title>
+      <ion-icon name="car" size="large"></ion-icon>
+      Peaje
+    </ion-title>
+  </ion-toolbar> -->
+  <ion-toolbar color="dark">
+    <ion-buttons slot="secondary">
+      <ion-button>
+        <ion-icon color="secondary" slot="icon-only" name="contact"></ion-icon>
+      </ion-button>
+      <ion-button>
+        <ion-icon color="secondary" slot="icon-only" name="search"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="primary">
+      <ion-button color="secondary">
+        <ion-icon slot="icon-only" name="more"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title color="warning">Lista de peajes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <!-- Refresher -->
+  <ion-refresher slot="fixed" (ionRefresh)="refrescar($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Tire para actualizar" refreshingSpinner="circles"
+      refreshingText="Refrescando la información...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <!-- Peajes -->
+  <app-my-peajes [peajes]="peajes"></app-my-peajes>
+
+  <!-- fab placed to the bottom end -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="modalAgregarPeaje()" color="dark">
+      <ion-icon color="warning" name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <!-- InfiniteScroll -->
+  <ion-infinite-scroll [disabled]="habilitado" threshold="100px" id="infinite-scroll-peajes" (ionInfinite)="cargarData($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Cargando más información...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+</ion-content>

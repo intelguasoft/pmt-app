@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { RespuestaLogin } from '../interfaces/interfaces';
 
 const URL = environment.url;
 @Injectable({
@@ -20,14 +21,13 @@ export class AuthService {
 
     return new Promise(resolve => {
 
-      this.http.post(`${URL}/api/v1/auth/login`, data)
-        .subscribe(async <Respuesta>(resp) => {
+      this.http.post<RespuestaLogin>(`${URL}/api/v1/auth/login`, data)
+        .subscribe(async (resp) => {
           console.log(resp);
           if (resp.data.ok) {
             await this.saveToken(resp.data.access_token);
             resolve(true);
-          }
-          if (resp.data.ok) {
+          }else {
             this.token = null;
             await this.storage.clear();
             resolve(false);

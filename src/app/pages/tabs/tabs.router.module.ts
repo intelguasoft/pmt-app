@@ -8,12 +8,12 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'peaje',
+        path: 'peajes',
         children: [
           {
             path: '',
             loadChildren: () =>
-              import('../peaje/peaje.module').then(m => m.PeajePageModule)
+              import('../peajes/peajes.module').then(m => m.PeajesPageModule)
           }
         ]
       },
@@ -49,14 +49,14 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: 'admin/peaje',
+        redirectTo: 'admin/peajes',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: 'admin/peaje',
+    redirectTo: 'admin/peajes',
     pathMatch: 'full'
   }
 ];

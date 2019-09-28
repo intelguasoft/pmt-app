@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { NavController } from '@ionic/angular';
-import { UIServiceService } from '../../services/uiservice.service';
+import { UIService } from '../../services/ui.service';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +18,7 @@ export class LoginPage implements OnInit {
   };
 
   constructor(private authService: AuthService,
-              private uiService: UIServiceService,
+              private uiService: UIService,
               private navCtrl: NavController) { }
 
   ngOnInit() {
@@ -32,7 +32,7 @@ export class LoginPage implements OnInit {
 
     if (valido) {
       // navegar al tab
-      this.navCtrl.navigateRoot('admin/peaje', { animated: true });
+      this.navCtrl.navigateRoot('admin/peajes', { animated: true });
     } else {
       // mostrar alerta de error
       this.uiService.presentAlert('Autenticación fallída', 'Usuario o contraseña incorrectos.');
