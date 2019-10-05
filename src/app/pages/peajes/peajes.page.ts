@@ -20,6 +20,11 @@ export class PeajesPage implements OnInit {
 
   ngOnInit() {
     this.cargarData();
+    this.refrescar(null)
+    this.peajesService.nuevoPeaje
+      .subscribe(peaje => {
+        this.peajes.unshift(peaje);
+      });
   }
 
   refrescar(event) {

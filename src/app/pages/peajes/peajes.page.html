@@ -43,7 +43,7 @@
   </ion-fab>
 
   <!-- InfiniteScroll -->
-  <ion-infinite-scroll [disabled]="habilitado" threshold="100px" id="infinite-scroll-peajes" (ionInfinite)="cargarData($event)">
+  <ion-infinite-scroll threshold="100px" id="infinite-scroll-peajes" (ionInfinite)="cargarData($event)">
     <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Cargando más información...">
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>

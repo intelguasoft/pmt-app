@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { RespuestaPeajes, Peaje } from '../interfaces/interfaces';
+import { RespuestaPeajes, Peaje, RespuestaPeaje } from '../interfaces/interfaces';
 
 const URL = environment.url;
 
@@ -11,6 +11,8 @@ const URL = environment.url;
 export class PeajesService {
 
   paginaPeaje = 0;
+
+  nuevoPeaje = new EventEmitter<Peaje>();
 
   constructor(private http: HttpClient) { }
 
@@ -30,11 +32,11 @@ export class PeajesService {
 
     return new Promise(resolve => {
 
-      this.http.post(`${URL}/api/v1/peaje/tolls`, peaje)
-        .subscribe(rpt => {
+      this.http.post<RespuestaPeaje>(`${URL}/api/v1/peaje/tolls`, peaje)
+        .subscribe((rpt) => {
           console.log(rpt);
-
-
+          this.nuevoPeaje.emit(rpt.data);
+          resolve(true);
         });
 
     });

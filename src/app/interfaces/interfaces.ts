@@ -81,3 +81,9 @@ export interface RespuestaTipoVeniculoPeajeId {
     data?: TypeTollVehicle;
     message?: string;
 }
+
+export interface RespuestaPeaje {
+    data?: Peaje;
+    message?: string;
+    success?: boolean;
+}

@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { ModalController } from '@ionic/angular';
 import { NgForm } from '@angular/forms';
 import { Peaje, TypeTollVehicle } from '../../../interfaces/interfaces';
 import { TipoVehiculoPeajesService } from '../../../services/tipo-vehiculo-peajes.service';
+import { PeajesService } from 'src/app/services/peajes.service';
+import { AuthService } from '../../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-agregar-peaje',
@@ -11,10 +16,11 @@ import { TipoVehiculoPeajesService } from '../../../services/tipo-vehiculo-peaje
 export class AgregarPeajePage implements OnInit {
 
   peaje: Peaje = {
-    date: new Date().toISOString(),
-    time: new Date().toTimeString(),
+    date: this.datePipe.transform(new Date().toISOString(), 'yyyy-MM-dd'),
+    time: this.datePipe.transform(new Date().toISOString(), 'hh:mm:ss'),
     type_toll_vehicle_id: 0,
-    car_plate: null
+    car_plate: '',
+    user_id: null
   };
 
   idTipo = 0;
@@ -22,7 +28,12 @@ export class AgregarPeajePage implements OnInit {
   tipo: TypeTollVehicle;
 
   tiposVehiculos: TypeTollVehicle[] = [];
-  constructor(private ttvService: TipoVehiculoPeajesService) { }
+  constructor(private ttvService: TipoVehiculoPeajesService,
+              private peajeService: PeajesService,
+              private authService: AuthService,
+              private datePipe: DatePipe,
+              private router: Router,
+              private modalCtrl: ModalController) { }
 
   ngOnInit() {
 
@@ -44,12 +55,21 @@ export class AgregarPeajePage implements OnInit {
        });
   }
 
-  agregarPeaje(mdlAgregarPeaje: NgForm) {
+  async guardar() {
+    const user = await this.authService.getUser();
 
+    this.peaje.user_id = user.id;
+    this.peaje.date = this.datePipe.transform(this.peaje.date, 'yyyy-MM-dd');
+
+    await this.peajeService.savePeaje(this.peaje);
+
+    this.peaje = {};
+    this.modalCtrl.dismiss();
+    this.router.navigateByUrl('admin/peajes');
   }
 
-  guardar() {
-    console.log(this.peaje);
+  cancelarModal() {
+    this.modalCtrl.dismiss();
   }
 
 }

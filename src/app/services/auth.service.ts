@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { RespuestaLogin } from '../interfaces/interfaces';
+import { RespuestaLogin, User } from '../interfaces/interfaces';
 
 const URL = environment.url;
 @Injectable({
@@ -11,6 +11,7 @@ const URL = environment.url;
 export class AuthService {
 
   token: string = null;
+  user: User = {};
 
   constructor(private http: HttpClient,
               private storage: Storage) { }
@@ -26,9 +27,11 @@ export class AuthService {
           console.log(resp);
           if (resp.data.ok) {
             await this.saveToken(resp.data.access_token);
+            await this.saveUser(resp.data.user);
             resolve(true);
-          }else {
+          } else {
             this.token = null;
+            this.user = null;
             await this.storage.clear();
             resolve(false);
           }
@@ -36,6 +39,15 @@ export class AuthService {
 
     });
 
+  }
+
+  async saveUser(user: User) {
+    this.user = user;
+    await this.storage.set('user', user);
+  }
+
+  async getUser() {
+    return await this.storage.get('user');
   }
 
   async saveToken(token: string) {
