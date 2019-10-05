@@ -40,7 +40,7 @@ export interface Peaje {
     id?: number;
     time?: string;
     type_toll_vehicle_id?: number;
-    type_toll_vehicle: TypeTollVehicle;
+    type_toll_vehicle?: TypeTollVehicle;
     updated_at?: string;
     user_id?: number;
 }
@@ -61,17 +61,23 @@ export interface DataPaginadaPeaje {
 }
 
 export interface TypeTollVehicle {
-    cost: number;
-    created_at: string;
-    description: string;
-    id: number;
-    prefix_car_plate: string;
-    type: string;
-    updated_at: string;
+    cost?: number;
+    created_at?: string;
+    description?: string;
+    id?: number;
+    prefix_car_plate?: string;
+    type?: string;
+    updated_at?: string;
 }
 
 export interface RespuestaTipoVeniculoPeaje {
     success?: boolean;
     data?: TypeTollVehicle[];
+    message?: string;
+}
+
+export interface RespuestaTipoVeniculoPeajeId {
+    success?: boolean;
+    data?: TypeTollVehicle;
     message?: string;
 }

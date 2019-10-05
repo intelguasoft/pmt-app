@@ -10,8 +10,18 @@ import { TipoVehiculoPeajesService } from '../../../services/tipo-vehiculo-peaje
 })
 export class AgregarPeajePage implements OnInit {
 
-  peaje: Peaje;
-  tiposVehiculos: TypeTollVehicle[];
+  peaje: Peaje = {
+    date: new Date().toISOString(),
+    time: new Date().toTimeString(),
+    type_toll_vehicle_id: 0,
+    car_plate: null
+  };
+
+  idTipo = 0;
+  prefijo: string = null;
+  tipo: TypeTollVehicle;
+
+  tiposVehiculos: TypeTollVehicle[] = [];
   constructor(private ttvService: TipoVehiculoPeajesService) { }
 
   ngOnInit() {
@@ -24,8 +34,22 @@ export class AgregarPeajePage implements OnInit {
 
   }
 
+  obtenerDato(event) {
+    console.log(event.detail.value);
+    this.ttvService.getTipoVehiculosPeajeById(event.detail.value)
+      .subscribe(rpt => {
+        this.tipo = rpt.data;
+        this.prefijo = this.tipo.prefix_car_plate;
+        console.log(this.tipo);
+       });
+  }
+
   agregarPeaje(mdlAgregarPeaje: NgForm) {
 
+  }
+
+  guardar() {
+    console.log(this.peaje);
   }
 
 }

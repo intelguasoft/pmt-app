@@ -4,34 +4,45 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding">
   <form (ngSubmit)="agregarPeaje(mdlAgregarPeaje)" #mdlAgregarPeaje="ngForm">
     <ion-list lines="none">
       <ion-item class="p-10">
         <ion-label color="dark" position="floating">Fecha </ion-label>
-          <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="peaje.date"  min="1994-03-14" max="2012-12-09"></ion-datetime>
+          <ion-datetime  [value]="peaje.date" displayFormat="DD/MM/YYYY" [(ngModel)]="peaje.date"></ion-datetime>
       </ion-item>
       <ion-item class="p-10">
         <ion-label color="dark" position="floating">Hora </ion-label>
-        <ion-datetime displayFormat="hh mm a" [(ngModel)]="peaje.time" ></ion-datetime>
+        <!-- <ion-datetime displayFormat="hh:mm a" [(ngModel)]="peaje.time" ></ion-datetime> -->
+        <ion-datetime [value]="peaje.time" displayFormat="HH:mm" pickerFormat="HH:mm" [(ngModel)]="peaje.time"></ion-datetime>
       </ion-item>
       <ion-item class="p-10">
         <ion-label>Tipo de vehículo</ion-label>
-        <ion-select okText="Aceptar" [(ngModel)]="peaje.type_toll_vehicle_id" cancelText="Cancelar">
+        <ion-select (ionChange)="obtenerDato($event)" okText="Aceptar" [(ngModel)]="peaje.type_toll_vehicle_id" cancelText="Cancelar">
           <ion-select-option *ngFor="let item of tiposVehiculos" value="{{ item.id}}">{{ item.type }}</ion-select-option>
         </ion-select>
       </ion-item>
 
       <ion-item class="p-10">
             <ion-label color="dark" position="floating">Placa</ion-label>
-            <ion-note slot="start">C -</ion-note>
-            <ion-input color="dark" name="car_plate" [(ngModel)]="peaje.car_plate" type="text">
+            <ion-note slot="start">{{ prefijo }}</ion-note>
+            <ion-input color="dark" #txtPlaca name="car_plate" [(ngModel)]="peaje.car_plate" type="text">
         </ion-input>
       </ion-item>
     </ion-list>
-    <ion-button type="submit" color="dark" shape="round" expand="full" fill="outline" size="large">
-      <ion-icon slot="start" name="save"></ion-icon>
-      Guardar
-    </ion-button>
+    <ion-row>
+      <ion-col size="6">
+        <ion-button expand="block" color="dark" fill="solid" (click)="guardar()" size="large">
+          <ion-icon slot="start" name="save"></ion-icon>
+          Guardar
+        </ion-button>
+      </ion-col>
+      <ion-col size="6">
+        <ion-button expand="block" color="dark" fill="solid" size="large">
+          <ion-icon slot="start" name="exit"></ion-icon>
+          Cancelar
+        </ion-button>
+      </ion-col>
+    </ion-row>
   </form>
 </ion-content>
