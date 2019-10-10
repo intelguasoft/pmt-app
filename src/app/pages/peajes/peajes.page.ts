@@ -13,18 +13,22 @@ export class PeajesPage implements OnInit {
 
   peajes: Peaje[] = [];
   habilitado = true;
+  inicial: boolean = false;
 
   constructor(private peajesService: PeajesService,
     private alertCtrl: AlertController,
     private modalCtrl: ModalController) { }
 
   ngOnInit() {
+    // console.log(this.peajes);
     this.cargarData();
-    this.refrescar(null)
-    this.peajesService.nuevoPeaje
+    this.refrescar(null);
+    if (this.inicial) {
+      this.peajesService.nuevoPeaje
       .subscribe(peaje => {
         this.peajes.unshift(peaje);
       });
+    }
   }
 
   refrescar(event) {
